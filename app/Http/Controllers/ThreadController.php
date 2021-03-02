@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{
     User,
-    Thread
+    Thread,
+    Channel
 };
 use Illuminate\Support\Str;
 
@@ -21,9 +22,15 @@ class ThreadController extends Controller
         $this->thread = $thread;     
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $threads = $this->thread->orderBy('created_at','DESC')->paginate(15);
+        $channelParam =$request->channel;
+        if(null !==$channelParam){
+            $threads = Channel::whereSlug($channelParam)->first()->threads()->paginate(15);
+        }else{
+            $threads = $this->thread->orderBy('created_at','DESC')->paginate(15);    
+        }
+        
         return view('threads.index',compact('threads'));
     }
 
@@ -32,9 +39,11 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Channel $channels)
     {
-        return view('threads.create');
+        
+        return view('threads.create',['channels'=>$channels->all()
+            ]);
     }
 
     /**

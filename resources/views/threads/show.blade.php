@@ -25,6 +25,7 @@
 	</div>
 </div>
 <hr>
+@if($thread->replies->count())
 <div class="col-12">
 	<h5>Respostas</h5>
 	<hr>
@@ -39,6 +40,7 @@
 		</div>
 	@endforeach
 </div>
+@endif
 <div class="col-12">
 	<hr>
 	<form action="{{route('replies.store')}}" method="post">
@@ -46,7 +48,12 @@
 		<input type="hidden" name="thread_id" value="{{$thread->id}}">
 		<div class="form-group">
 			<label>Responder</label>
-			<textarea name="reply" id="" cols="30" rows="10" class="form-control"></textarea>
+			<textarea name="reply" id="" cols="30" rows="10" class="form-control @error('reply') is-invalid @enderror"></textarea>
+			@error('reply')
+				<div class="invalid-feedback">
+					{{$message}}
+				</div>
+				@enderror
 		</div>
 		
 		<button type="submit">Responder</button>

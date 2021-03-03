@@ -17,6 +17,7 @@
 			<h5>{{$thread->title}}</h5>
 			<small>Criado em {{$thread->created_at->diffForHumans()}} por {{$thread->user->name}}</small>
 			<span class="badge badge-primary">{{$thread->channel->slug}}</span>
+			<span class="badge badge-warning badge-pill">{{$thread->replies->count()}}</span>
 		</a>
 	</div>
 @empty

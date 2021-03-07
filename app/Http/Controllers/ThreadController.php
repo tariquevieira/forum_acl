@@ -25,6 +25,7 @@ class ThreadController extends Controller
 
     public function index(Request $request)
     {
+        
         $channelParam =$request->channel;
         if(null !==$channelParam){
             $threads = Channel::whereSlug($channelParam)->first()->threads()->paginate(15);

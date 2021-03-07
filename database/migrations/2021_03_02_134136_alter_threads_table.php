@@ -30,7 +30,8 @@ class AlterThreadsTable extends Migration
     public function down()
     {
         Schema::table('threads', function (Blueprint $table) {
-            //
+            $table->dropForeign('threads_channel_id_foreign');
+            $table->dropColumn('channel_id');
         });
     }
 }

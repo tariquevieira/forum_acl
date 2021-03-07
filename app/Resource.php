@@ -11,4 +11,9 @@ class Resource extends Model
     {
     	return $this->belongsToMany(Role::class);
     }
+
+    public function module()
+	{
+		return $this->belongsTo(Module::class);
+	}
 }

@@ -19,7 +19,7 @@ Route::group(['middleware'=>'access.control.list'],function(){
 	Route::resource('threads','ThreadController');
 });
 
-Route::group(['middleware' => 'auth', 'namespace' => 'Manager', 'prefix' => 'manager'], function(){
+Route::group(['middleware' => ['auth','access.control.list'], 'namespace' => 'Manager', 'prefix' => 'manager'], function(){
 	Route::get('/', function(){
 		return redirect()->route('users.index');
 	});
